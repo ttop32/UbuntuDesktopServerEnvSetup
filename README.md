@@ -33,9 +33,7 @@ service ssh start
 sudo apt install git
 git config --global user.name "ttop32"
 git config --global user.email ttop324@gmail.com
-ssh-keygen -t rsa -b 4096 -C "ttop324@gmail.com"
-cat ~/.ssh/id_rsa.pub
-https://github.com/settings/ssh/new
+
 
 
 #gpu driver
@@ -77,7 +75,9 @@ sudo fdisk -l
 sudo blkid
 sudo mkdir -p /mnt/0/
 sudo vim /etc/fstab
-#type UUID=DC94-944F /mnt/0/ exfat defaults,uid=1000,gid=1000 0 0
+""" input below line
+UUID=DC94-944F /mnt/0/ exfat defaults,uid=1000,gid=1000 0 0
+"""
 sudo mount -a
 df -h
 
@@ -112,26 +112,28 @@ tmux attach -t 0
 echo "set -g mouse on" >> ~/.tmux.conf
 tmux source ~/.tmux.conf
 
-
+""" input below line
 set -g mouse on
 setw -g mode-keys vi
 
-# Use Alt-arrow keys without prefix key to switch panes
+// Use Alt-arrow keys without prefix key to switch panes
 bind -n M-Left select-pane -L
 bind -n M-Right select-pane -R
 bind -n M-Up select-pane -U
 bind -n M-Down select-pane -D
 
-# Shift arrow to switch windows
+//Shift arrow to switch windows
 bind -n S-Left  previous-window
 bind -n S-Right next-window
 
-# scrollback buffer size increase
+//scrollback buffer size increase
 set -g history-limit 100000
 
-# change window order
+//change window order
 bind-key -n C-S-Left swap-window -t -1
 bind-key -n C-S-Right swap-window -t +1
+
+"""
 
 
 
@@ -167,10 +169,11 @@ conda install jupyter
 jupyter notebook password
 jupyter notebook --generate-config
 vim ~/.jupyter/jupyter_notebook_config.py
+""" input below line
 c.NotebookApp.ip = '0.0.0.0'
 c.NotebookApp.open_browser = False
 c.NotebookApp.port = 8888
-
+"""
 jupyter notebook
 
 pip install jupyterthemes
