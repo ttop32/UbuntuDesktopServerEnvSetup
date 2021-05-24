@@ -103,8 +103,6 @@ sudo apt-get install tmux
 tmux new -s 0
 tmux attach -t 0
 
-
-echo "set -g mouse on" >> ~/.tmux.conf
 tmux source ~/.tmux.conf
 """ input below line
 set -g mouse on
