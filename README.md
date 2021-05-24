@@ -60,8 +60,9 @@ iwconfig
 sudo apt-get install network-manager
 sudo service network-manager restart
 sudo nmtui
-#activate a connection - select wifi
-
+"""
+activate a connection - select wifi
+"""
 
 #iptime router setting
 """
