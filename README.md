@@ -64,10 +64,12 @@ sudo nmtui
 
 
 #iptime router setting
-#http://192.168.0.1/
-#fix local ip : newtork - dhcp 
-#portfowrd : router - portforwarding
-#ddns : utility - ddns
+"""
+open http://192.168.0.1/
+fix local ip : newtork - dhcp 
+portfowrd : router - portforwarding      //port forward for jupyterlab(port 8888) and ssh(port 22) 
+ddns : utility - ddns
+"""
 
 #hdd mount
 df -h
@@ -95,13 +97,6 @@ update-initramfs -u
 
 
 
-
-
-
-
-
-
-
 #tmux
 sudo apt-get install tmux
 
@@ -111,7 +106,6 @@ tmux attach -t 0
 
 echo "set -g mouse on" >> ~/.tmux.conf
 tmux source ~/.tmux.conf
-
 """ input below line
 set -g mouse on
 setw -g mode-keys vi
@@ -132,15 +126,7 @@ set -g history-limit 100000
 //change window order
 bind-key -n C-S-Left swap-window -t -1
 bind-key -n C-S-Right swap-window -t +1
-
 """
-
-
-
-
-
-
-
 
 
 
@@ -174,13 +160,8 @@ c.NotebookApp.ip = '0.0.0.0'
 c.NotebookApp.open_browser = False
 c.NotebookApp.port = 8888
 """
-jupyter notebook
-
-pip install jupyterthemes
-jt -t monokai
-
 pip install jupyterlab
-
+jupyter lab
 
 
 
