@@ -1,5 +1,5 @@
 # UbuntuDesktopServerEnvSetup
-personal ubutu desktop server setup note
+personal ubuntu desktop server setup note
 
 setup note to run python jupyter lab from outdoor
 
