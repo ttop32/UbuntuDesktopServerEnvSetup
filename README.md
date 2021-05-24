@@ -8,6 +8,7 @@ setup note to run python jupyter lab from outdoor
 - usb lan card    iptime A3000u
 - modem           ipTIME A3004NS-M
 - os              ubuntu 18.04
+- hard            wd new my book
 
 
 # Environment setup note
