@@ -66,9 +66,9 @@ sudo nmtui
 #iptime router setting
 """
 open http://192.168.0.1/
-fix local ip : newtork - dhcp 
+fix local ip : newtork - dhcp            //fix desktop local ip
 portfowrd : router - portforwarding      //port forward for jupyterlab(port 8888) and ssh(port 22) 
-ddns : utility - ddns
+ddns : utility - ddns                 //get xxxx.iptime.org
 """
 
 #hdd mount
