@@ -1,6 +1,7 @@
 # UbuntuDesktopServerEnvSetup
 personal ubutu desktop server setup note
 
+setup note run python jupyter lab from outdoor
 
 # Hardware Environment
 - gpu             3060GTX
