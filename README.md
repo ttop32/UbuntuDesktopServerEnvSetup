@@ -177,3 +177,4 @@ pip install tqdm
 # Acknowledgement and References
 - [TensorFlow-1-15-for-NVIDIA-RTX30-GPUs](https://www.pugetsystems.com/labs/hpc/How-To-Install-TensorFlow-1-15-for-NVIDIA-RTX30-GPUs-without-docker-or-CUDA-install-2005/)  
 - [A3000u wifi usb driver](https://awakening95.tistory.com/10)
+- [tmux setup](https://junho85.pe.kr/320)
