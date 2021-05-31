@@ -169,6 +169,11 @@ pip install numpy
 pip install tqdm
 
 
+
+#google drive
+sudo apt update && sudo apt install rclone
+rclone config 
+
   ```
 
 
