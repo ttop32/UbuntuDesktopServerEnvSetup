@@ -103,7 +103,7 @@ sudo apt-get install tmux
 tmux new -s 0
 tmux attach -t 0
 
-tmux source ~/.tmux.conf
+vim ~/.tmux.conf
 """ input below line
 set -g mouse on
 setw -g mode-keys vi
@@ -125,7 +125,7 @@ set -g history-limit 100000
 bind-key -n C-S-Left swap-window -t -1
 bind-key -n C-S-Right swap-window -t +1
 """
-
+tmux source ~/.tmux.conf
 
 
 
