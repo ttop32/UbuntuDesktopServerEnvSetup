@@ -75,9 +75,7 @@ sudo fdisk -l
 sudo blkid
 sudo mkdir -p /mnt/0/
 sudo vim /etc/fstab
-""" input below line
-UUID=DC94-944F /mnt/0/ exfat defaults,uid=1000,gid=1000 0 0
-"""
+sed -i -e "\$aUUID=DC94-944F /mnt/0/ exfat defaults,uid=1000,gid=1000 0 0" /etc/fstab
 sudo mount -a
 df -h
 
