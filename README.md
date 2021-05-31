@@ -11,6 +11,8 @@ setup note to run python jupyter lab from outdoor
 - hard            wd new my book
 
 
+
+
 # Environment setup note
 
 ```python
@@ -22,20 +24,13 @@ sudo sed -i 's/kr.archive.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list
 #apt install
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get install vim curl dkms build-essential 
-sudo apt-get install htop
-sudo apt-get install ncdu
+sudo apt-get install vim curl dkms build-essential htop ncdu
 
 
 #ssh
 sudo apt-get install ssh
+sudo sed -i "s/#Port 22/Port 2222/" /etc/ssh/sshd_config
 service ssh start
-
-#git
-sudo apt install git
-git config --global user.name "ttop32"
-git config --global user.email ttop324@gmail.com
-
 
 
 #gpu driver
@@ -97,6 +92,11 @@ update-initramfs -u
 
 
 
+
+#git
+sudo apt install git
+git config --global user.name "ttop32"
+git config --global user.email ttop324@gmail.com
 
 
 
