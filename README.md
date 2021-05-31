@@ -29,7 +29,7 @@ sudo apt-get install vim curl dkms build-essential htop ncdu
 
 #ssh
 sudo apt-get install ssh
-sudo sed -i "s/#Port 22/Port 2222/" /etc/ssh/sshd_config
+sed -i 's/^#?Port .*/Port 2222/' /etc/ssh/sshd_config
 service ssh start
 
 
