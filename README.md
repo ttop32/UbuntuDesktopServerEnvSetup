@@ -133,7 +133,7 @@ tmux source ~/.tmux.conf
 
 #anaconda for python3
 wget https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh
-bash Anaconda3-2020.02-Linux-x86_64.sh
+bash Anaconda3-2020.02-Linux-x86_64.sh -b
 conda config --set ssl_verify False
 
 #RTX30-GPUs for tensorflow 1.15.4
