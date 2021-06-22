@@ -34,11 +34,58 @@ service ssh start
 
 
 #gpu driver
-sudo add-apt-repository ppa:graphics-drivers/ppa
-sudo apt update
-sudo ubuntu-drivers autoinstall
-sudo reboot
-nvidia-smi
+#sudo add-apt-repository ppa:graphics-drivers/ppa
+#sudo apt update
+#sudo ubuntu-drivers autoinstall
+#sudo reboot
+#nvidia-smi
+
+
+
+##################################gpu   https://www.tensorflow.org/install/gpu?hl=ko
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
+sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600`
+sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /"
+sudo apt-get update
+
+wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
+
+sudo apt install ./nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
+sudo apt-get update
+
+# Install NVIDIA driver
+sudo apt-get install --no-install-recommends nvidia-driver-455
+# Reboot. Check that GPUs are visible using the command: nvidia-smi
+
+wget https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
+sudo apt install ./libnvinfer7_7.1.3-1+cuda11.0_amd64.deb
+sudo apt-get update
+
+# Install development and runtime libraries (~4GB)
+sudo apt-get install --no-install-recommends \
+    cuda-11-0 \
+    libcudnn8=8.0.4.30-1+cuda11.0  \
+    libcudnn8-dev=8.0.4.30-1+cuda11.0
+
+# Install TensorRT. Requires that libcudnn8 is installed above.
+sudo apt-get install -y --no-install-recommends libnvinfer7=7.1.3-1+cuda11.0 \
+    libnvinfer-dev=7.1.3-1+cuda11.0 \
+    libnvinfer-plugin7=7.1.3-1+cuda11.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #A3000u wifi usb driver
 sudo apt-get update
@@ -147,6 +194,10 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/anaconda3/envs/tf1-nv/lib/
 pip install --user nvidia-tensorflow[horovod]
 
 
+# pytorch
+pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio===0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
+
+
 
 #jupyter
 conda install jupyter
@@ -160,6 +211,8 @@ c.NotebookApp.port = 8888
 """
 conda install -c conda-forge jupyterlab
 jupyter lab
+
+
 
 
 
