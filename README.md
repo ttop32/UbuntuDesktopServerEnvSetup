@@ -227,6 +227,11 @@ pip install tqdm
 sudo apt update && sudo apt install rclone
 rclone config 
 
+
+
+#vscode server
+curl -fsSL https://code-server.dev/install.sh | sh
+
   ```
 
 
