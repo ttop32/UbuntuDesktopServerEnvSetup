@@ -24,8 +24,7 @@ sudo sed -i 's/kr.archive.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list
 #apt install
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get install vim curl dkms build-essential htop ncdu
-
+sudo apt-get install vim curl dkms build-essential htop ncdu net-tools
 
 #ssh
 sudo apt-get install ssh
