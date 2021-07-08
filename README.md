@@ -231,6 +231,12 @@ rclone config
 #vscode server
 curl -fsSL https://code-server.dev/install.sh | sh
 sudo vim ~/.config/code-server/config.yaml
+"""
+bind-addr: 0.0.0.0:8080
+auth: password
+password: 12343543
+cert: false
+"""
 code-server
 
 #ngrok
