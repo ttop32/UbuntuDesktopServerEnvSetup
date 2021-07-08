@@ -222,7 +222,7 @@ pip install tqdm
 
 
 
-#google drive
+#google drive clone
 sudo apt update && sudo apt install rclone
 rclone config 
 
@@ -230,6 +230,13 @@ rclone config
 
 #vscode server
 curl -fsSL https://code-server.dev/install.sh | sh
+sudo vim ~/.config/code-server/config.yaml
+code-server
+
+#ngrok
+sudo snap install ngrok
+./ngrok authtoken brtg34yh645u6577j6ye
+ngrok http 8080
 
   ```
 
