@@ -235,7 +235,7 @@ code-server
 
 #ngrok
 sudo snap install ngrok
-./ngrok authtoken brtg34yh645u6577j6ye
+ngrok authtoken brtg34yh645u6577j6ye
 ngrok http 8080
 
   ```
