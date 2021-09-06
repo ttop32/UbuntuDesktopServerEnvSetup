@@ -26,6 +26,11 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install vim curl dkms build-essential htop ncdu net-tools
 
+##chrome install
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install ./google-chrome-stable_current_amd64.deb
+
+
 #ssh
 sudo apt-get install ssh
 sed -i 's/^#?Port .*/Port 2222/' /etc/ssh/sshd_config
@@ -243,6 +248,132 @@ code-server
 sudo snap install ngrok
 ngrok authtoken brtg34yh645u6577j6ye
 ngrok http 8080
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#ddns setting
+#generate url from https://www.duckdns.org/ and copy its token
+#use token to update dynamic ip every 5 min 
+vim ~/duck.sh
+"""
+echo url="https://www.duckdns.org/update?domains=EXAMPLDOMAINNAME&token=1534634-535f-4536-a435-4435242543&ip=" | curl -k -o ~/duck.log -K -
+"""
+chmod 700 ~/duck.sh
+crontab -e
+"""
+*/5 * * * * ~/duck.sh >/dev/null 2>&1
+"""    
+./duck.sh
+
+
+
+
+#set nginx reverse proxy and issue https ssl to generated url using Let's Encrypt
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get purge nginx nginx-common
+sudo apt install python-certbot-nginx
+sudo certbot --nginx -d ttop324.ddns.net
+
+#setup nginx confing and reload
+sudo vim /etc/nginx/nginx.conf
+sudo vim /etc/nginx/sites-enabled/default
+sudo nginx -t
+sudo systemctl restart nginx && sudo systemctl status nginx
+"""
+#ssl reverse proxy
+server {
+    listen 80;
+    server_name example.com;
+    #jupyter lab
+    location / {
+            proxy_pass http://127.0.0.1:22288/;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+            # websocket headers
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            proxy_set_header X-Scheme $scheme;
+
+            proxy_buffering off;
+    }
+    #VS code server
+    location /code-server/ {
+            proxy_pass http://127.0.0.1:40004/;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $http_host;
+            proxy_set_header X-NginX-Proxy true;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            proxy_redirect off;
+    }
+    #testing page
+    location /test/ {
+            proxy_pass http://127.0.0.1:3000/;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection upgrade;
+            proxy_set_header Host $host;
+            proxy_set_header Accept-Encoding gzip;
+    }
+
+    
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+#redirect http://example.com to https://example.com
+server {
+    if ($host = example.com) { 
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+    
+    listen 80 ;
+    listen [::]:80 ;
+    server_name example.com;
+    return 404; # managed by Certbot
+}
+
+"""
+
+
+#auto renew for ssl
+sudo vim /etc/cron.d/certbot
+"""
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+0 */12 * * * root test -x /usr/bin/certbot -a \! -d /run/systemd/system && perl -e 'sleep int(rand(43200))' && certbot -q renew
+"""
+
+
+
+
+
+
+
+
 
   ```
 
