@@ -33,14 +33,27 @@ service ssh start
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #gpu driver
 #sudo add-apt-repository ppa:graphics-drivers/ppa
 #sudo apt update
 #sudo ubuntu-drivers autoinstall
 #sudo reboot
 #nvidia-smi
-
-
 
 ##################################gpu   https://www.tensorflow.org/install/gpu?hl=ko
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
@@ -71,20 +84,6 @@ sudo apt-get install --no-install-recommends \
 sudo apt-get install -y --no-install-recommends libnvinfer7=7.1.3-1+cuda11.0 \
     libnvinfer-dev=7.1.3-1+cuda11.0 \
     libnvinfer-plugin7=7.1.3-1+cuda11.0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #A3000u wifi usb driver
@@ -124,6 +123,18 @@ sudo mkdir -p /mnt/0/
 sed -i -e "\$aUUID=DC94-944F /mnt/0/ exfat defaults,uid=1000,gid=1000 0 0" /etc/fstab
 sudo mount -a
 df -h
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
