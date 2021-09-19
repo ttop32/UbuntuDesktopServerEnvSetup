@@ -26,15 +26,11 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install vim curl dkms build-essential htop ncdu net-tools
 
-##chrome install
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt install ./google-chrome-stable_current_amd64.deb
-
-
 #ssh
 sudo apt-get install ssh
 sed -i 's/^#?Port .*/Port 2222/' /etc/ssh/sshd_config
 service ssh start
+
 
 
 #gpu driver
@@ -130,48 +126,47 @@ sudo mount -a
 df -h
 
 
-#error fix for Possible missing firmware /lib/firmware/rtl_nic/rtl8125a-3.fw 
-sudo su
-cd /lib/firmware/rtl_nic
-wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/rtl_nic/rtl8125a-3.fw
-wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/rtl_nic/rtl8168fp-3.fw
-update-initramfs -u
 
-
-
-
-
-#git
+########################software install
 sudo apt install git
 git config --global user.name "ttop32"
 git config --global user.email ttop324@gmail.com
+#git lfs - Git Large File Storage 
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+sudo apt-get install git-lfs
+git lfs install
 
+#google drive clone
+sudo apt update && sudo apt install rclone
+rclone config 
 
+##chrome install
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install ./google-chrome-stable_current_amd64.deb
+
+#ngrok
+sudo snap install ngrok
+ngrok authtoken brtg34yh645u6577j6ye
+ngrok http 8080
 
 #tmux
 sudo apt-get install tmux
-
 tmux new -s 0
 tmux attach -t 0
-
 vim ~/.tmux.conf
 """ input below line
 set -g mouse on
 setw -g mode-keys vi
-
 // Use Alt-arrow keys without prefix key to switch panes
 bind -n M-Left select-pane -L
 bind -n M-Right select-pane -R
 bind -n M-Up select-pane -U
 bind -n M-Down select-pane -D
-
 //Shift arrow to switch windows
 bind -n S-Left  previous-window
 bind -n S-Right next-window
-
 //scrollback buffer size increase
 set -g history-limit 100000
-
 //change window order
 bind-key -n C-S-Left swap-window -t -1
 bind-key -n C-S-Right swap-window -t +1
@@ -179,13 +174,39 @@ bind-key -n C-S-Right swap-window -t +1
 tmux source ~/.tmux.conf
 
 
-
-
-
 #anaconda for python3
 wget https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh
 bash Anaconda3-2020.02-Linux-x86_64.sh
 conda config --set ssl_verify False
+
+#pip 
+pip install Pillow numpy numpy
+
+#jupyter
+conda install jupyter
+jupyter notebook password
+jupyter notebook --generate-config
+vim ~/.jupyter/jupyter_notebook_config.py
+""" input below line
+c.NotebookApp.ip = '0.0.0.0'
+c.NotebookApp.open_browser = False
+c.NotebookApp.port = 8888
+"""
+conda install -c conda-forge jupyterlab
+jupyter lab
+
+#vscode server
+curl -fsSL https://code-server.dev/install.sh | sh
+sudo vim ~/.config/code-server/config.yaml
+"""
+bind-addr: 0.0.0.0:8080
+auth: password
+password: 12343543
+cert: false
+"""
+code-server
+
+
 
 #RTX30-GPUs for tensorflow 1.15.4
 conda create --name tf1-nv  python=3.6
@@ -203,51 +224,6 @@ pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio===0.7.2 -f ht
 
 
 
-#jupyter
-conda install jupyter
-jupyter notebook password
-jupyter notebook --generate-config
-vim ~/.jupyter/jupyter_notebook_config.py
-""" input below line
-c.NotebookApp.ip = '0.0.0.0'
-c.NotebookApp.open_browser = False
-c.NotebookApp.port = 8888
-"""
-conda install -c conda-forge jupyterlab
-jupyter lab
-
-
-
-
-
-#pip 
-pip install Pillow
-pip install numpy 
-pip install tqdm
-
-
-
-#google drive clone
-sudo apt update && sudo apt install rclone
-rclone config 
-
-
-
-#vscode server
-curl -fsSL https://code-server.dev/install.sh | sh
-sudo vim ~/.config/code-server/config.yaml
-"""
-bind-addr: 0.0.0.0:8080
-auth: password
-password: 12343543
-cert: false
-"""
-code-server
-
-#ngrok
-sudo snap install ngrok
-ngrok authtoken brtg34yh645u6577j6ye
-ngrok http 8080
 
 
 
@@ -264,11 +240,9 @@ ngrok http 8080
 
 
 
-
-
-#ddns setting
-#generate url from https://www.duckdns.org/ and copy its token
-#use token to update dynamic ip every 5 min 
+#ddns ==========================================================================
+#################### ddns generate from www.duckdns.org/
+#get token from website to update dynamic ip every 5 min 
 vim ~/duck.sh
 """
 echo url="https://www.duckdns.org/update?domains=EXAMPLDOMAINNAME&token=1534634-535f-4536-a435-4435242543&ip=" | curl -k -o ~/duck.log -K -
@@ -279,10 +253,19 @@ crontab -e
 */5 * * * * ~/duck.sh >/dev/null 2>&1
 """    
 ./duck.sh
+############################ddns generate from www.dynu.com
+#!/bin/bash
+IP=`dig +short myip.opendns.com @resolver1.opendns.com`
+HOSTNAME=dyrh.ddnsfree.com
+PASSWD=546536
+USER_NAME=dhbry
+echo url="https://api.dynu.com/nic/update?myip=$IP&username=$USER_NAME&password=$PASSWD" | curl -k -K -
 
 
 
 
+#reverse proxy and ssl==========================================================================
+#port forward 80 and 443 is requried
 #set nginx reverse proxy and issue https ssl to generated url using Let's Encrypt
 sudo add-apt-repository ppa:certbot/certbot
 sudo apt-get purge nginx nginx-common
@@ -355,7 +338,6 @@ server {
     server_name example.com;
     return 404; # managed by Certbot
 }
-
 """
 
 
@@ -374,13 +356,8 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 
 
-#git lfs - Git Large File Storage 
-curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-sudo apt-get install git-lfs
-git lfs install
-            
-    
 
+            
 #  docker install
 sudo apt update
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
