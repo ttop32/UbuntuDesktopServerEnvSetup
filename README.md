@@ -374,6 +374,53 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 
 
+#git lfs - Git Large File Storage 
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+sudo apt-get install git-lfs
+git lfs install
+            
+    
+
+#  docker install
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+sudo apt update
+sudo apt install docker-ce
+docker --version
+sudo chmod 666 /var/run/docker.sock
+docker login
+
+
+#docker test
+vim Dockerfile
+"""
+FROM node:10
+WORKDIR /workspace
+COPY package*.json ./
+RUN npm install
+COPY . .
+
+EXPOSE 80
+
+CMD [ "node", "index.js" ]
+"""
+docker build -t ttop324/nodejs_hello_world:latest .
+docker images
+docker run -p 10000:80 -d ttop324/nodejs_hello_world:latest
+curl -i localhost:10000
+docker ps -all
+#upload download
+docker push ttop324/nodejs_hello_world:latest 
+docker pull ttop324/nodejs_hello_world:latest
+#remove
+docker rm -f 1gvt5t45
+docker rmi vcrt542
+    
+
+
+
 
   ```
 
