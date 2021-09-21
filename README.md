@@ -32,6 +32,15 @@ sed -i 's/^#?Port .*/Port 2222/' /etc/ssh/sshd_config
 service ssh start
 
 
+#git
+#get access token from https://github.com/settings/tokens/new, use it as password
+sudo apt install git
+git config --global user.name "ttop32"
+git config --global user.email ttop324@gmail.com
+#git lfs - Git Large File Storage 
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+sudo apt-get install git-lfs
+git lfs install
 
 
 
@@ -139,13 +148,7 @@ df -h
 
 
 ########################software install
-sudo apt install git
-git config --global user.name "ttop32"
-git config --global user.email ttop324@gmail.com
-#git lfs - Git Large File Storage 
-curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-sudo apt-get install git-lfs
-git lfs install
+
 
 #google drive clone
 sudo apt update && sudo apt install rclone
