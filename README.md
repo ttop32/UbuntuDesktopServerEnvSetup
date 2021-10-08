@@ -412,6 +412,11 @@ docker rmi vcrt542
 
 
 
+#ip ban
+journalctl -xe
+iptables -A INPUT -s 47.243.126.246 -j DROP
+
+
 
   ```
 
