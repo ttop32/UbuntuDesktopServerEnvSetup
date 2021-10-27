@@ -419,6 +419,19 @@ docker rmi vcrt542
     
 
 
+#increase virtual memory size
+free -m
+sudo swapoff -v /swapfile
+sudo fallocate -l 32G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+
+vim /etc/fstab 
+'''
+swapfile none swap sw 0 0
+'''
+
 
 #ip ban
 journalctl -xe
