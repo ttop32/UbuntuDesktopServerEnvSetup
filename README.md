@@ -207,6 +207,7 @@ c.NotebookApp.open_browser = False
 c.NotebookApp.port = 8888
 """
 conda install -c conda-forge jupyterlab
+conda install nb_conda_kernels
 jupyter lab
 
 #vscode server
