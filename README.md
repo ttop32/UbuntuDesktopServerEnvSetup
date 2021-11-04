@@ -233,6 +233,13 @@ export PATH=$PATH:$HOME/.local/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/anaconda3/envs/tf1-nv/lib/
 pip install --user nvidia-tensorflow[horovod]
 
+#tf2.6.0
+conda create --name tf26  python=3.6
+conda activate tf26
+conda install cudatoolkit=11.2 -c pytorch -c nvidia
+conda install -c conda-forge cudnn-8.2.1.32  
+!pip install tensorflow_gpu==2.6.0
+
 
 # pytorch
 pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio===0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
