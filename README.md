@@ -208,6 +208,8 @@ c.NotebookApp.port = 8888
 """
 conda install -c conda-forge jupyterlab
 conda install nb_conda_kernels
+conda install -c conda-forge jupyterlab_code_formatter
+conda install black isort
 jupyter lab
 
 #vscode server
