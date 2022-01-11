@@ -195,7 +195,6 @@ conda config --set ssl_verify False
 
 #pip 
 pip install Pillow numpy numpy
-conda install -c conda-forge nodejs
 
 #jupyter
 conda install jupyter
