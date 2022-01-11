@@ -286,14 +286,9 @@ crontab -e
 """    
 ./duck.sh
 ############################ddns generate from www.dynu.com
-#!/bin/bash
-IP=`dig +short myip.opendns.com @resolver1.opendns.com`
-HOSTNAME=dyrh.ddnsfree.com
-PASSWD=546536
-USER_NAME=dhbry
-echo url="https://api.dynu.com/nic/update?myip=$IP&username=$USER_NAME&password=$PASSWD" | curl -k -K -
-
-
+URL='https://www.dynu.com/support/downloadfile/31'; FILE=`mktemp`; wget "$URL" -qO $FILE && sudo dpkg -i $FILE; rm $FILE
+sudo vim /etc/dynuiuc/dynuiuc.conf
+systemctl restart dynuiuc.service
 
 
 #reverse proxy and ssl==========================================================================
