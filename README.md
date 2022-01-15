@@ -309,6 +309,8 @@ sudo systemctl restart nginx && sudo systemctl status nginx
 server {
     listen 80;
     server_name example.com;
+    client_max_body_size 0;
+    
     #jupyter lab
     location / {
             proxy_pass http://127.0.0.1:22222/;
