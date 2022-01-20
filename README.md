@@ -33,10 +33,7 @@ service ssh start
 
 
 #git
-#get access token from https://github.com/settings/tokens/new, use it as password
 sudo apt install git
-git config --global user.name "ttop32"
-git config --global user.email ttop324@gmail.com
 ssh-keygen -t rsa -b 4096 -C "ttop324@gmail.com"
 cat ~/.ssh/id_rsa.pub
 # copy and paste cat result to https://github.com/settings/ssh/new
