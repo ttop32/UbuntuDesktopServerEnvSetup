@@ -306,6 +306,7 @@ sudo vim /etc/nginx/nginx.conf
 sudo vim /etc/nginx/sites-enabled/default
 sudo nginx -t
 sudo systemctl restart nginx && sudo systemctl status nginx
+sudo nginx -s reload
 """
 #ssl reverse proxy
 server {
