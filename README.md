@@ -375,7 +375,7 @@ server {
 server {
     root /var/www/html;
     index index.html index.htm index.nginx-debian.html;
-    server_name  sub.ttop324.ddnsfree.com;
+    server_name  sub.example.com;
     location / {
             proxy_pass http://127.0.0.1:8080/;
             proxy_set_header Upgrade $http_upgrade;
