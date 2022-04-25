@@ -58,7 +58,6 @@ sudo apt install npm
 
 
 
-
 #gpu driver
 #sudo add-apt-repository ppa:graphics-drivers/ppa
 #sudo apt update
@@ -457,9 +456,35 @@ swapfile none swap sw 0 0
 '''
 
 
+
+
+
+#security########################################################
+#check ssh login
+tail -f -n 500 /var/log/auth.log | grep 'sshd'
+
+#check syslog
+cat /var/log/syslog
+
+#check job scheduler
+sudo crontab -u userName -l
+
+#change root pw
+sudo -i
+passwd
+
+#remove root ssh login
+vim /etc/ssh/sshd_config
+add "PermitRootLogin no"
+systemctl restart sshd
+
+
 #ip ban
 journalctl -xe
 iptables -A INPUT -s 47.243.126.246 -j DROP
+
+
+
 
 
 
