@@ -484,6 +484,30 @@ journalctl -xe
 iptables -A INPUT -s 47.243.126.246 -j DROP
 
 
+#ssh login try list
+last -f /var/log/btmp | more
+
+
+#fail ban
+sudo apt-get install fail2ban 
+sudo vi /etc/fail2ban/jail.conf
+"""
+[DEFAULT]
+ignoreip = 127.0.0.1/8 192.168.0.1/24   # 로컬환경 항상 허용
+bantime = 2592000      # 30일 차단 (초단위)
+maxretry = 3        # 최대 재시도 횟수. 이 이상되면 차단됨.
+"""
+sudo vi /etc/fail2ban/jail.d/sshd-ddos.conf
+"""
+[sshd-ddos] 
+enabled = true
+"""
+sudo service fail2ban restart
+#list ban
+cat /var/log/fail2ban.log  | grep fail2ban.actions
+#unban
+sudo fail2ban-client set sshd unbanip 000.000.000.000
+
 
 
 
@@ -495,3 +519,4 @@ iptables -A INPUT -s 47.243.126.246 -j DROP
 - [TensorFlow-1-15-for-NVIDIA-RTX30-GPUs](https://www.pugetsystems.com/labs/hpc/How-To-Install-TensorFlow-1-15-for-NVIDIA-RTX30-GPUs-without-docker-or-CUDA-install-2005/)  
 - [A3000u wifi usb driver](https://awakening95.tistory.com/10)
 - [tmux setup](https://junho85.pe.kr/320)
+- [fail2ban](https://zipi.me/601)
