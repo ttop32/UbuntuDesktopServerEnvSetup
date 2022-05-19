@@ -496,8 +496,6 @@ sudo vi /etc/fail2ban/jail.conf
 ignoreip = 127.0.0.1/8 192.168.0.1/24   # 로컬환경 항상 허용
 bantime = 2592000      # 30일 차단 (초단위)
 maxretry = 3        # 최대 재시도 횟수. 이 이상되면 차단됨.
-# Default protocol
-protocol = all
 
 """
 sudo vi /etc/fail2ban/jail.d/sshd-ddos.conf
