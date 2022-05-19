@@ -479,13 +479,13 @@ add "PermitRootLogin no"
 systemctl restart sshd
 
 
-#ip ban
+
+#login try 
 journalctl -xe
-iptables -A INPUT -s 47.243.126.246 -j DROP
-
-
-#ssh login try list
+last
 last -f /var/log/btmp | more
+#ip ban
+iptables -A INPUT -s 47.243.126.246 -j DROP
 
 
 #fail ban
