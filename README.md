@@ -509,7 +509,48 @@ cat /var/log/fail2ban.log  | grep fail2ban.actions
 #unban
 sudo fail2ban-client set sshd unbanip 000.000.000.000
 
+#geoip-ban#######################
+sudo apt-get install geoip-bin geoip-database
+geoiplookup 8.8.8.8
 
+vim /usr/local/bin/sshfilter.sh
+"""
+#!/bin/bash
+ 
+# UPPERCASE space-separated country codes to ACCEPT
+ALLOW_COUNTRIES="KR"
+ 
+if [ $# -ne 1 ]; then
+  echo "Usage:  `basename $0` <ip>" 1>&2
+  exit 0 # return true in case of config issue
+fi
+ 
+COUNTRY=`/usr/bin/geoiplookup $1 | awk -F ": " '{ print $2 }' | awk -F "," '{ print $1 }' | head -n 1`
+ 
+[[ $COUNTRY = "IP Address not found" || $ALLOW_COUNTRIES =~ $COUNTRY ]] && RESPONSE="ALLOW" || RESPONSE="DENY"
+ 
+if [ $RESPONSE = "ALLOW" ]
+then
+  exit 0
+else
+  logger "$RESPONSE sshd connection from $1 ($COUNTRY)"
+  exit 1
+fi
+"""
+sudo vim /etc/hosts.deny 
+"""
+sshd: ALL
+"""
+sudo vim /etc/hosts.allow 
+"""
+sshd: ALL: aclexec /usr/local/bin/sshfilter.sh %a
+"""
+
+sudo chown root.root /usr/local/bin/sshfilter.sh
+sudo chmod 775 /usr/local/bin/sshfilter.sh
+/usr/local/bin/sshfilter.sh 8.8.8.8
+/usr/local/bin/sshfilter.sh 14.32.209.211
+service sshd restart 
 
 
 
@@ -521,3 +562,4 @@ sudo fail2ban-client set sshd unbanip 000.000.000.000
 - [A3000u wifi usb driver](https://awakening95.tistory.com/10)
 - [tmux setup](https://junho85.pe.kr/320)
 - [fail2ban](https://zipi.me/601)
+- [geoip-ban](https://shutcoding.tistory.com/24)
