@@ -99,14 +99,12 @@ sudo apt-get install -y --no-install-recommends libnvinfer7=7.1.3-1+cuda11.0 \
 #A3000u wifi usb driver
 sudo apt-get update
 sudo apt-get install build-essential dkms git
-sudo git clone https://github.com/cilynx/rtl88x2BU_WiFi_linux_v5.3.1_27678.20180430_COEX20180427-5959.git
-cd rtl88x2BU_WiFi_linux_v5.3.1_27678.20180430_COEX20180427-5959
-VER=$(sed -n 's/\PACKAGE_VERSION="\(.*\)"/\1/p' dkms.conf)
-sudo rsync -rvhP ./ /usr/src/rtl88x2bu-${VER}
-sudo dkms add -m rtl88x2bu -v ${VER}
-sudo dkms build -m rtl88x2bu -v ${VER}
-sudo dkms install -m rtl88x2bu -v ${VER}
-sudo modprobe 88x2bu
+sudo git clone "https://github.com/RinCat/RTL88x2BU-Linux-Driver.git" /usr/src/rtl88x2bu-git
+sudo sed -i 's/PACKAGE_VERSION="@PKGVER@"/PACKAGE_VERSION="git"/g' /usr/src/rtl88x2bu-git/dkms.conf
+sudo dkms add -m rtl88x2bu -v git
+sudo dkms autoinstall
+
+
 
 #wifi connect
 iwconfig
@@ -172,17 +170,13 @@ vim ~/.tmux.conf
 """ input below line
 set -g mouse on
 setw -g mode-keys vi
-// Use Alt-arrow keys without prefix key to switch panes
 bind -n M-Left select-pane -L
 bind -n M-Right select-pane -R
 bind -n M-Up select-pane -U
 bind -n M-Down select-pane -D
-//Shift arrow to switch windows
 bind -n S-Left  previous-window
 bind -n S-Right next-window
-//scrollback buffer size increase
 set -g history-limit 100000
-//change window order
 bind-key -n C-S-Left swap-window -t -1
 bind-key -n C-S-Right swap-window -t +1
 """
@@ -297,8 +291,9 @@ systemctl restart dynuiuc.service
 #set nginx reverse proxy and issue https ssl to generated url using Let's Encrypt
 sudo add-apt-repository ppa:certbot/certbot
 sudo apt-get purge nginx nginx-common
-sudo apt install python-certbot-nginx
+sudo apt-get install python3-certbot-nginx
 sudo certbot --nginx -d ttop324.ddns.net
+
 
 #setup nginx confing and reload
 sudo vim /etc/nginx/nginx.conf
