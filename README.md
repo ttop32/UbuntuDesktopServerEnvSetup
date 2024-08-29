@@ -184,8 +184,8 @@ tmux source ~/.tmux.conf
 
 
 #anaconda for python3
-wget https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh
-bash Anaconda3-2020.02-Linux-x86_64.sh
+wget https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Linux-x86_64.sh	
+bash Anaconda3-2024.06-1-Linux-x86_64.sh	
 conda config --set ssl_verify False
 
 #pip 
