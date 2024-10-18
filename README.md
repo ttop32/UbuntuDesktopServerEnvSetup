@@ -168,17 +168,30 @@ tmux new -s 0
 tmux attach -t 0
 vim ~/.tmux.conf
 """ input below line
+
+set -g history-limit 50000
 set -g mouse on
 setw -g mode-keys vi
-bind -n M-Left select-pane -L
+bind-key y set-window-option synchronize-panes
+bind -n M-Left  select-pane -L
 bind -n M-Right select-pane -R
-bind -n M-Up select-pane -U
-bind -n M-Down select-pane -D
+bind -n M-Up    select-pane -U
+bind -n M-Down  select-pane -D
+bind -n M-q     display-panes
+bind -n M-0 select-window -t 0
+bind -n M-1 select-window -t 1
+bind -n M-2 select-window -t 2
+bind -n M-3 select-window -t 3
+bind -n M-4 select-window -t 4
+bind -n M-5 select-window -t 5
+bind -n M-6 select-window -t 6
+bind -n M-7 select-window -t 7
+bind -n M-8 select-window -t 8
+bind -n M-9 select-window -t 9
 bind -n S-Left  previous-window
 bind -n S-Right next-window
-set -g history-limit 100000
-bind-key -n C-S-Left swap-window -t -1
-bind-key -n C-S-Right swap-window -t +1
+bind | split-window -h
+bind - split-window -v
 """
 tmux source ~/.tmux.conf
 
