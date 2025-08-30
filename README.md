@@ -302,10 +302,12 @@ crontab -e
 */5 * * * * ~/duck.sh >/dev/null 2>&1
 """    
 ./duck.sh
+
+
 ############################ddns generate from www.dynu.com
-URL='https://www.dynu.com/support/downloadfile/31'; FILE=`mktemp`; wget "$URL" -qO $FILE && sudo dpkg -i $FILE; rm $FILE
-sudo vim /etc/dynuiuc/dynuiuc.conf
-systemctl restart dynuiuc.service
+https://www.dynu.com/DynamicDNS/IPUpdateClient/Linux
+
+
 
 
 #reverse proxy and ssl==========================================================================
