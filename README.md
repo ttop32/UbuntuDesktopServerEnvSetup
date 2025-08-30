@@ -99,17 +99,16 @@ sudo apt-get install -y --no-install-recommends libnvinfer7=7.1.3-1+cuda11.0 \
 #A3000u wifi usb driver
 sudo apt-get update
 sudo apt-get install build-essential dkms git
-sudo git clone "https://github.com/RinCat/RTL88x2BU-Linux-Driver.git" /usr/src/rtl88x2bu-git
-sudo sed -i 's/PACKAGE_VERSION="@PKGVER@"/PACKAGE_VERSION="git"/g' /usr/src/rtl88x2bu-git/dkms.conf
-sudo dkms add -m rtl88x2bu -v git
-sudo dkms autoinstall
+git clone https://github.com/morrownr/88x2bu-20210702.git
+cd 88x2bu-20210702
+sudo ./install-driver.sh
 
 
 
 #wifi connect
 iwconfig
 sudo apt-get install network-manager
-sudo service network-manager restart
+sudo service NetworkManager restart
 sudo nmtui
 """
 activate a connection - select wifi
