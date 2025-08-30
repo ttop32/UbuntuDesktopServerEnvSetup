@@ -265,7 +265,14 @@ pip install ipython_genutils
 ipython kernel install --user --name=tf2
 conda deactivate
 
-
+#py39
+conda create -n py39 python=3.9
+conda activate py39
+conda install ipykernel
+pip install ipython_genutils
+ipython kernel install --user --name=py39
+conda deactivate
+history
 
 
 
