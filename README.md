@@ -28,8 +28,8 @@ sudo apt-get install vim curl dkms build-essential htop ncdu net-tools
 
 #ssh
 sudo apt-get install ssh
-sed -i 's/^#?Port .*/Port 2222/' /etc/ssh/sshd_config
-service ssh start
+sudo sed -i 's/^#?Port .*/Port 2222/' /etc/ssh/sshd_config
+sudo service ssh start
 
 
 #git
@@ -127,8 +127,9 @@ df -h
 sudo fdisk -l
 sudo blkid
 sudo mkdir -p /mnt/0/
-sed -i -e "\$aUUID=DC94-944F /mnt/0/ exfat defaults,uid=1000,gid=1000 0 0" /etc/fstab
+sudo sed -i -e "\$aUUID=DC94-944F /mnt/0/ exfat defaults,uid=1000,gid=1000 0 0" /etc/fstab
 sudo mount -a
+sudo systemctl daemon-reload
 df -h
 
 
