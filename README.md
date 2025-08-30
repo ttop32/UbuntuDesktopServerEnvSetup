@@ -197,9 +197,11 @@ tmux source ~/.tmux.conf
 
 
 #anaconda for python3
-wget https://repo.anaconda.com/archive/Anaconda3-2024.06-1-Linux-x86_64.sh	
-bash Anaconda3-2024.06-1-Linux-x86_64.sh	
-conda config --set ssl_verify False
+wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
+bash Miniforge3-Linux-x86_64.sh
+source ~/.bashrc
+
+
 
 #pip 
 pip install Pillow numpy numpy
