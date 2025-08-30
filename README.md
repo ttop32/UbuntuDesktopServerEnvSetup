@@ -489,9 +489,8 @@ sudo -i
 passwd
 
 #remove root ssh login
-vim /etc/ssh/sshd_config
-add "PermitRootLogin no"
-systemctl restart sshd
+echo "PermitRootLogin no" | sudo tee -a /etc/ssh/sshd_config
+sudo systemctl restart sshd
 
 
 
